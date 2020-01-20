@@ -1,0 +1,81 @@
+<div class="container-fluid" style="background-color:lightblue;">
+  <h2 style="text-align: center;">Registration Form</h2>
+  {{regForm.value | json }}
+  <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+     <div class="form-group">
+      <label >UserName</label>
+      <!-- <input [class.is-invalid]="fc.userName.invalid && fc.userName.touched"  formControlName="userName" type="text"  class="form-control" /> -->
+    <!-- <small [class.d-none]="regForm.get('userName').valid || regForm.get('userName').untouched" class="text-danger">UserName is required</small> --> 
+    <input [class.is-invalid]="fc.userName.invalid && fc.userName.touched"  formControlName="userName" type="text"  class="form-control" />
+    <div *ngIf="fc.userName.invalid && fc.userName.touched">
+      <small *ngIf="fc.userName.errors?.required" class="text-danger"> User Name is required</small>
+      <small *ngIf="fc.userName.errors?.minlength" class="text-danger"> User Name minlength is 3 or More  </small>
+      <small *ngIf="fc.userName.errors?.maxlength" class="text-danger"> User Name maxlength is 5</small>
+      <small *ngIf="fc.userName.errors?.forbiddenName" class="text-danger">{{fc.userName.errors?.forbiddenName.value}} user name not allowed </small>
+
+    </div> 
+     </div>
+
+
+    <!-- <div class="form-group">
+      <label>UserName</label>
+      <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': (fc.userName.touched && fc.userName.invalid) && fc.userName.errors }" />
+      <div *ngIf="fc.userName.touched  && fc.userName.errors" class="text-danger">
+          <div *ngIf="fc.userName.errors.required">User Name is required</div>
+          <div *ngIf="fc.userName.errors.minlength">User Name minlength is 3 or More</div>
+      </div>
+  </div> -->
+
+
+    
+    <div class="form-group">
+      <label >Password</label>
+      <input formControlName="password" type="password"  class="form-control">
+
+    </div>
+    <div class="form-group">
+      <label >ConfirmPassword</label>
+      <input [class.is-invalid]="regForm.errors?.mismatch"  formControlName="confirmPassword"  type="password"  class="form-control">
+      <small *ngIf="regForm.errors?.mismatch" class="text-danger"> password and confirm password not the same </small>
+    </div>
+    
+    <div class="form-group">
+      <label >Email</label> &nbsp;&nbsp;
+      <button type="button" class="btn btn-secondary btn-sm " (click)="addAltEmail()">Add</button>
+      <input [class.is-invalid]="fc.email.invalid && fc.email.touched" formControlName="email" type="email"  class="form-control">
+       <small *ngIf="fc.email.errors?.required" class="text-danger">Email is required </small>
+      <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls;let i=index">
+        <input type="text" class="form-control my-1" [formControlName]="i">
+      </div>
+    </div>
+
+    <div class="form-check mb-3">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" formControlName="subscribe" checked>
+         Send me promotional offers
+      </label>
+    </div>
+
+    <div formGroupName="address">
+
+    <div class="form-group">
+      <label >City</label>
+      <input formControlName="city" type="text"  class="form-control">
+
+    </div>
+    <div class="form-group">
+      <label >State</label>
+      <input formControlName="state" type="text"  class="form-control">
+
+    </div>
+    <div class="form-group">
+      <label >PostalCode</label>
+      <input formControlName="postalCode" type="text"  class="form-control">
+
+    </div>
+     <!-- sub form ending -->
+    </div>
+    <button [disabled]="!regForm.valid" class="btn btn-primary ml-2" type="submit">Register</button>
+    <button (click)="loadApiData()" class="btn btn-secondary" type="button" >LoadData</button>
+  </form>
+</div>

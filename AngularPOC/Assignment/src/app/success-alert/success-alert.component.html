@@ -1,0 +1,93 @@
+
+
+<div class="container-fluid" style="background-color: lightcoral;">
+   
+<h3 style="text-align: center;">Hi Welcome to SU</h3>
+<label>Server Name using Event binding</label>
+
+<input type="text" (input)="onCreateServerUpdate($event)" id="input" class="form-control" >
+
+<p>{{serverName}}</p>
+ 
+</div>
+
+<div class="container-fluid" style="background-color:magenta">
+   
+    <h3 style="text-align: center;">Hi Welcome to SU</h3>
+    <label>Server Name using Event binding</label>
+    
+    <input type="text"   class="form-control" [(ngModel)]="serverName" >
+    
+    <!-- <p>{{serverName}}</p> -->
+
+</div>
+    
+<div class="container-fluid" style="background-color:lightseagreen;">
+    <label>Server Name Button event</label>
+<button type="button" (click)="onCreateServer()" class="btn btn-primary" [disabled]="!serverButton">Add</button>
+<p>{{serverButton}}</p>
+<!-- <p [innerText]="serverButton">  this will change the values dynamically </p>  -->
+  <!-- <p>{{serverCreationStatus}}</p>   -->
+  <p *ngIf="serverCreated; else noServer">Servere is created server name {{serverName}}</p>
+
+
+  <ng-template #noServer>
+   
+    <p>No server created</p>
+
+  </ng-template>
+</div>
+
+
+<div class="container-fluid">
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <p>ngStyle</p>
+            <p [ngStyle]="{'background-color': getColor()}">Server Status is : {{serverStatus}}</p>
+            <p [ngStyle]="{'background-color': serverStatus==='Online' ? 'green':'red'}">Server Status is : {{serverStatus}}</p>
+            <p>ngClass</p>
+            <p [ngClass]="{'Online': serverStatus==='Online'}">Server Status is : {{serverStatus}}</p>
+        </div>
+
+        <div class="col-xs-12">
+         
+            <li *ngFor="let server of servers">
+
+              Server : {{server}}
+            </li>
+
+         </div>   
+
+    </div>
+
+    <div class="container-fluid">
+    
+        <div class="row">
+            <div class="col-xs-12">
+              
+                
+                <button type="button" class="btn btn-primary" (click)="isToggle = !isToggle ">Add Toggle to Our Own hide and show</button>
+                
+                <p *ngIf="isToggle">is Toggle hide and show user defined way</p>
+
+                 
+
+                <button type="button" class="btn btn-primary" (click)="OnToggle()">By using method Add Toggle to Our Own hide and show</button>
+                
+                <p *ngIf="isToggleMethod">is Toggle hide and show user defined way</p>
+
+                <div *ngFor="let item of log;let i=index" [ngStyle]="{'background-color':i >= 3 ? 'green':'red'}" 
+                     [ngClass]="{'white-color': i <5 }">
+
+                    <p >{{i}}  : {{item}}</p>
+
+                </div>
+
+             </div>
+               
+         </div>
+             
+     </div>
+    
+</div>
